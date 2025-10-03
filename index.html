@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Money To - Maximize Your Conversions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            padding: 24px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-30px, -30px); }
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo h1 {
+            color: white;
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo .tagline {
+            color: #a1a1aa;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .card {
+            background: rgba(24, 24, 27, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            padding: 56px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 0.8s ease;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .step {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #52525b;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 20px;
+        }
+
+        .step.active {
+            background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+            border-color: transparent;
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.5);
+        }
+
+        .step.completed {
+            background: #10b981;
+            border-color: transparent;
+            color: white;
+            font-size: 24px;
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 40px;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        .bubble-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .currency-bubble {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .currency-bubble::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .currency-bubble:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .currency-bubble:hover {
+            border-color: #7c3aed;
+            background: rgba(124, 58, 237, 0.1);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(124, 58, 237, 0.35);
+        }
+
+        .currency-bubble.selected {
+            background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+            border-color: transparent;
+            transform: scale(1.08);
+            box-shadow: 0 20px 50px rgba(124, 58, 237, 0.5);
+        }
+
+        .currency-flag {
+            font-size: 48px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .currency-code {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .currency-name {
+            font-size: 14px;
+            color: #a1a1aa;
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .currency-bubble.selected .currency-name {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .input-field {
+            margin-bottom: 32px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #e4e4e7;
+            font-size: 18px;
+            letter-spacing: 0.3px;
+        }
+
+        input {
+            width: 100%;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 20px;
+            color: white;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #7c3aed;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+        }
+
+        button {
+            background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            padding: 22px 40px;
+            border-radius: 20px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 48px rgba(124, 58, 237, 0.4);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .savings-reveal {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            border-radius: 24px;
+            padding: 44px;
+            text-align: center;
+            margin: 32px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .savings-amount {
+            font-size: 68px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 24px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .conversion-info {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 32px;
+            border-radius: 20px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .conversion-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 16px 0;
+            font-size: 18px;
+        }
+
+        .conversion-label {
+            color: #a1a1aa;
+            font-size: 16px;
+        }
+
+        .conversion-value {
+            font-weight: 700;
+            color: white;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .currency-icon {
+            font-size: 24px;
+        }
+
+        .unlock-options {
+            display: grid;
+            gap: 20px;
+            margin-top: 32px;
+        }
+
+        .option-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover {
+            border-color: rgba(124, 58, 237, 0.5);
+            background: rgba(124, 58, 237, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .option-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .option-badge.ad {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .option-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .option-desc {
+            color: #a1a1aa;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .option-amount {
+            font-size: 36px;
+            font-weight: 800;
+            color: #10b981;
+            margin: 16px 0;
+        }
+
+        .path-revealed {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: 32px;
+        }
+
+        .path-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 32px 0;
+            flex-wrap: wrap;
+        }
+
+        .currency-badge {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 18px 36px;
+            border-radius: 36px;
+            font-weight: 700;
+            font-size: 22px;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+        }
+
+        .arrow-icon {
+            color: #60a5fa;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .platform-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .platform-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .platform-row:last-child {
+            border-bottom: none;
+        }
+
+        .platform-label {
+            color: #a1a1aa;
+            font-size: 16px;
+        }
+
+        .platform-name {
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 28px;
+            border-radius: 16px;
+            margin-top: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .instructions ol {
+            margin-left: 28px;
+            margin-top: 16px;
+        }
+
+        .instructions li {
+            margin: 14px 0;
+            color: #e4e4e7;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.05);
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .emoji {
+            font-size: 72px;
+            margin-bottom: 24px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .info-text {
+            color: #a1a1aa;
+            font-size: 16px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            padding: 36px;
+            border-radius: 24px;
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .final-amount {
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 16px 0;
+        }
+
+        .ad-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .ad-container {
+            background: rgba(24, 24, 27, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 56px;
+            max-width: 560px;
+            text-align: center;
+            animation: scaleIn 0.4s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .ad-timer {
+            font-size: 80px;
+            font-weight: 900;
+            color: #f59e0b;
+            margin: 32px 0;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .skip-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            margin-top: 28px;
+            animation: fadeInUp 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>change money to</h1>
+            <p class="tagline">maximize every conversion with smart routing</p>
+        </div>
+
+        <!-- Step 1: Select Source Currency -->
+        <div id="step1" class="card">
+            <div class="step-indicator">
+                <div class="step active">1</div>
+                <div class="step">2</div>
+                <div class="step">3</div>
+                <div class="step">4</div>
+            </div>
+
+            <h2>What money do you have?</h2>
+            
+            <div class="bubble-container" id="fromBubbles">
+                <div class="currency-bubble" onclick="selectFromCurrency('NGN')">
+                    <div class="currency-flag">🇳🇬</div>
+                    <div class="currency-code">NGN</div>
+                    <div class="currency-name">Nigerian Naira</div>
+                </div>
+                <div class="currency-bubble" onclick="selectFromCurrency('USD')">
+                    <div class="currency-flag">🇺🇸</div>
+                    <div class="currency-code">USD</div>
+                    <div class="currency-name">US Dollar</div>
+                </div>
+                <div class="currency-bubble" onclick="selectFromCurrency('CAD')">
+                    <div class="currency-flag">🇨🇦</div>
+                    <div class="currency-code">CAD</div>
+                    <div class="currency-name">Canadian Dollar</div>
+                </div>
+                <div class="currency-bubble" onclick="selectFromCurrency('GBP')">
+                    <div class="currency-flag">🇬🇧</div>
+                    <div class="currency-code">GBP</div>
+                    <div class="currency-name">British Pound</div>
+                </div>
+                <div class="currency-bubble" onclick="selectFromCurrency('EUR')">
+                    <div class="currency-flag">🇪🇺</div>
+                    <div class="currency-code">EUR</div>
+                    <div class="currency-name">Euro</div>
+                </div>
+                <div class="currency-bubble" onclick="selectFromCurrency('KES')">
+                    <div class="currency-flag">🇰🇪</div>
+                    <div class="currency-code">KES</div>
+                    <div class="currency-name">Kenyan Shilling</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Select Target Currency -->
+        <div id="step2" class="card hidden">
+            <div class="step-indicator">
+                <div class="step completed">✓</div>
+                <div class="step active">2</div>
+                <div class="step">3</div>
+                <div class="step">4</div>
+            </div>
+
+            <h2>What do you want?</h2>
+            
+            <div class="bubble-container" id="toBubbles"></div>
+        </div>
+
+        <!-- Step 3: Amount Input -->
+        <div id="step3" class="card hidden">
+            <div class="step-indicator">
+                <div class="step completed">✓</div>
+                <div class="step completed">✓</div>
+                <div class="step active">3</div>
+                <div class="step">4</div>
+            </div>
+
+            <h2>How much are you converting?</h2>
+            
+            <div class="input-field">
+                <label for="amount">Enter amount in <span id="amountCurrency"></span>:</label>
+                <input type="number" id="amount" placeholder="0.00" step="100" min="100">
+            </div>
+
+            <button onclick="calculateSavings()">See My Savings →</button>
+            <button onclick="backToStep2()" class="back-button">← Back</button>
+        </div>
+
+        <!-- Step 4: Choose Unlock Method -->
+        <div id="step4" class="card hidden">
+            <div class="step-indicator">
+                <div class="step completed">✓</div>
+                <div class="step completed">✓</div>
+                <div class="step completed">✓</div>
+                <div class="step active">4</div>
+            </div>
+
+            <div class="emoji">💰</div>
+            <h2>Choose Your Path</h2>
+
+            <div class="conversion-info">
+                <div class="conversion-row">
+                    <span class="conversion-label">You're converting:</span>
+                    <span class="conversion-value" id="summaryAmount"></span>
+                </div>
+                <div class="conversion-row">
+                    <span class="conversion-label">To currency:</span>
+                    <span class="conversion-value" id="summaryCurrency"></span>
+                </div>
+            </div>
+
+            <div class="unlock-options">
+                <div class="option-card" onclick="unlockBestPath()">
+                    <span class="option-badge">BEST SAVINGS</span>
+                    <div class="option-title">Premium Path</div>
+                    <div class="option-amount" id="bestSavings"></div>
+                    <div class="option-desc">Get the absolute best conversion path and maximize your savings</div>
+                    <div style="margin-top: 16px; color: #10b981; font-weight: 700; font-size: 18px;">Pay 25%: <span id="feeAmount"></span></div>
+                </div>
+
+                <div class="option-card" onclick="showAdForPath()">
+                    <span class="option-badge ad">FREE SAVINGS</span>
+                    <div class="option-title">Watch 60s Ad</div>
+                    <div class="option-amount" id="adSavings"></div>
+                    <div class="option-desc">Watch a short ad to unlock a great conversion path — completely free!</div>
+                    <div style="margin-top: 16px; color: #f59e0b; font-weight: 700; font-size: 18px;">100% Free • Watch Ad</div>
+                </div>
+            </div>
+
+            <button onclick="backToStep3()" class="back-button">← Back</button>
+        </div>
+
+        <!-- Step 5: Path Revealed -->
+        <div id="step5" class="card hidden">
+            <div class="emoji">✅</div>
+            <h2 id="pathTitle">Your Optimal Path</h2>
+
+            <div class="path-revealed">
+                <p style="font-weight: 700; color: #60a5fa; margin-bottom: 24px; font-size: 18px;">Follow these steps in order:</p>
+                
+                <div class="path-steps" id="pathSteps"></div>
+
+                <div class="platform-info">
+                    <div style="font-weight: 700; color: #e4e4e7; margin-bottom: 16px; font-size: 18px;">📱 Platforms for Each Step:</div>
+                    <div id="platformList"></div>
+                </div>
+
+                <div class="instructions">
+                    <strong style="color: #e4e4e7; font-size: 18px;">📋 How to Execute:</strong>
+                    <ol id="instructionsList"></ol>
+                </div>
+            </div>
+
+            <div class="final-box">
+                <p style="color: #10b981; font-weight: 700; font-size: 18px;">🎯 Final Amount You'll Receive:</p>
+                <div class="final-amount" id="finalAmount"></div>
+            </div>
+
+            <button onclick="startOver()">Start New Conversion</button>
+        </div>
+    </div>
+
+    <!-- Ad Overlay -->
+    <div id="adOverlay" class="ad-overlay hidden">
+        <div class="ad-container">
+            <div class="emoji">📺</div>
+            <h2 style="font-size: 32px;">Unlocking Your Free Path...</h2>
+            <div class="ad-timer" id="adTimer">60</div>
+            <p style="color: #a1a1aa; margin-top: 16px; font-size: 18px;">Your conversion path will be revealed when the ad ends</p>
+            <button id="skipBtn" class="skip-button hidden" onclick="skipAd()">Continue to Your Path →</button>
+        </div>
+    </div>
+
+    <script>
+        const exchangeRates = {
+            'NGN-USD': 0.00063, 'USD-NGN': 1580,
+            'USD-CAD': 1.36, 'CAD-USD': 0.735,
+            'NGN-CAD': 0.00085, 'CAD-NGN': 1176,
+            'EUR-USD': 1.09, 'USD-EUR': 0.92,
+            'GBP-USD': 1.27, 'USD-GBP': 0.79,
+            'EUR-GBP': 0.86, 'GBP-EUR': 1.16,
+            'NGN-EUR': 0.00058, 'EUR-NGN': 1724,
+            'NGN-GBP': 0.0005, 'GBP-NGN': 2000,
+            'CAD-EUR': 0.68, 'EUR-CAD': 1.47,
+            'CAD-GBP': 0.58, 'GBP-CAD': 1.72,
+            'KES-USD': 0.0078, 'USD-KES': 128,
+            'KES-NGN': 12.3, 'NGN-KES': 0.081,
+            'KES-CAD': 0.0106, 'CAD-KES': 94.3,
+            'KES-EUR': 0.0072, 'EUR-KES': 138.9,
+            'KES-GBP': 0.0062, 'GBP-KES': 161.3
+        };
+
+        const platforms = {
+            'NGN-USD': 'Pesa', 'USD-NGN': 'Pesa',
+            'USD-CAD': 'Wise', 'CAD-USD': 'Wise',
+            'NGN-CAD': 'Pesa', 'CAD-NGN': 'Pesa',
+            'EUR-USD': 'Revolut', 'USD-EUR': 'Revolut',
+            'GBP-USD': 'Wise', 'USD-GBP': 'Wise',
+            'EUR-GBP': 'Revolut', 'GBP-EUR': 'Revolut',
+            'NGN-EUR': 'Pesa', 'EUR-NGN': 'Pesa',
+            'NGN-GBP': 'Pesa', 'GBP-NGN': 'Pesa',
+            'CAD-EUR': 'Wise', 'EUR-CAD': 'Wise',
+            'CAD-GBP': 'Wise', 'GBP-CAD': 'Wise',
+            'KES-USD': 'Pesa', 'USD-KES': 'Pesa',
+            'KES-NGN': 'Pesa', 'NGN-KES': 'Pesa',
+            'KES-CAD': 'Pesa', 'CAD-KES': 'Pesa',
+            'KES-EUR': 'Pesa', 'EUR-KES': 'Pesa',
+            'KES-GBP': 'Pesa', 'GBP-KES': 'Pesa'
+        };
+
+        const currencyData = {
+            'NGN': { flag: '🇳🇬', code: 'NGN', name: 'Nigerian Naira' },
+            'USD': { flag: '🇺🇸', code: 'USD', name: 'US Dollar' },
+            'CAD': { flag: '🇨🇦', code: 'CAD', name: 'Canadian Dollar' },
+            'GBP': { flag: '🇬🇧', code: 'GBP', name: 'British Pound' },
+            'EUR': { flag: '🇪🇺', code: 'EUR', name: 'Euro' },
+            'KES': { flag: '🇰🇪', code: 'KES', name: 'Kenyan Shilling' }
+        };
+
+        let fromCurrency = '';
+        let toCurrency = '';
+        let amount = 0;
+        let allPaths = [];
+        let selectedPathIndex = 0;
+
+        function selectFromCurrency(currency) {
+            fromCurrency = currency;
+            document.querySelectorAll('#fromBubbles .currency-bubble').forEach(b => b.classList.remove('selected'));
+            event.target.closest('.currency-bubble').classList.add('selected');
+            
+            setTimeout(() => {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+                populateToCurrencies();
+            }, 400);
+        }
+
+        function populateToCurrencies() {
+            const toBubbles = document.getElementById('toBubbles');
+            toBubbles.innerHTML = '';
+            
+            Object.keys(currencyData).forEach(code => {
+                if (code !== fromCurrency) {
+                    const data = currencyData[code];
+                    toBubbles.innerHTML += `
+                        <div class="currency-bubble" onclick="selectToCurrency('${code}')">
+                            <div class="currency-flag">${data.flag}</div>
+                            <div class="currency-code">${data.code}</div>
+                            <div class="currency-name">${data.name}</div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        function selectToCurrency(currency) {
+            toCurrency = currency;
+            document.querySelectorAll('#toBubbles .currency-bubble').forEach(b => b.classList.remove('selected'));
+            event.target.closest('.currency-bubble').classList.add('selected');
+            
+            setTimeout(() => {
+                document.getElementById('step2').classList.add('hidden');
+                document.getElementById('step3').classList.remove('hidden');
+                document.getElementById('amountCurrency').textContent = fromCurrency;
+            }, 400);
+        }
+
+        function backToStep2() {
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+        }
+
+        function backToStep3() {
+            document.getElementById('step4').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+        }
+
+        function getExchangeRate(from, to) {
+            return exchangeRates[`${from}-${to}`] || null;
+        }
+
+        function findAllPaths(from, to, amount) {
+            const currencies = ['NGN', 'USD', 'CAD', 'EUR', 'GBP', 'KES'];
+            const paths = [];
+
+            const directRate = getExchangeRate(from, to);
+            if (directRate) {
+                paths.push({
+                    route: [from, to],
+                    finalAmount: amount * directRate
+                });
+            }
+
+            for (const intermediate of currencies) {
+                if (intermediate === from || intermediate === to) continue;
+                
+                const rate1 = getExchangeRate(from, intermediate);
+                const rate2 = getExchangeRate(intermediate, to);
+                
+                if (rate1 && rate2) {
+                    paths.push({
+                        route: [from, intermediate, to],
+                        finalAmount: amount * rate1 * rate2
+                    });
+                }
+            }
+
+            for (const int1 of currencies) {
+                if (int1 === from || int1 === to) continue;
+                
+                for (const int2 of currencies) {
+                    if (int2 === from || int2 === to || int2 === int1) continue;
+                    
+                    const rate1 = getExchangeRate(from, int1);
+                    const rate2 = getExchangeRate(int1, int2);
+                    const rate3 = getExchangeRate(int2, to);
+                    
+                    if (rate1 && rate2 && rate3) {
+                        paths.push({
+                            route: [from, int1, int2, to],
+                            finalAmount: amount * rate1 * rate2 * rate3
+                        });
+                    }
+                }
+            }
+
+            return paths.sort((a, b) => b.finalAmount - a.finalAmount);
+        }
+
+        function calculateSavings() {
+            amount = parseFloat(document.getElementById('amount').value);
+            
+            if (!amount || amount < 100) {
+                alert('Please enter an amount of at least 100');
+                return;
+            }
+
+            allPaths = findAllPaths(fromCurrency, toCurrency, amount);
+            const bestPath = allPaths[0];
+            const secondBestPath = allPaths[1] || allPaths[0];
+            const directPath = allPaths.find(p => p.route.length === 2);
+            const directAmount = directPath ? directPath.finalAmount : 0;
+
+            const bestSavings = bestPath.finalAmount - directAmount;
+            const secondBestSavings = secondBestPath.finalAmount - directAmount;
+            const fee = bestSavings * 0.25;
+
+            const fromFlag = currencyData[fromCurrency].flag;
+            const toFlag = currencyData[toCurrency].flag;
+
+            document.getElementById('summaryAmount').innerHTML = `
+                <span class="currency-icon">${fromFlag}</span>
+                ${amount.toLocaleString()} ${fromCurrency}
+            `;
+            document.getElementById('summaryCurrency').innerHTML = `
+                <span class="currency-icon">${toFlag}</span>
+                ${toCurrency}
+            `;
+            document.getElementById('bestSavings').textContent = `+${bestSavings.toFixed(2)} ${toCurrency}`;
+            document.getElementById('adSavings').textContent = `+${secondBestSavings.toFixed(2)} ${toCurrency}`;
+            document.getElementById('feeAmount').textContent = `${fee.toFixed(2)} ${toCurrency}`;
+
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step4').classList.remove('hidden');
+        }
+
+        function unlockBestPath() {
+            selectedPathIndex = 0;
+            showPath('Best Savings Path');
+        }
+
+        function showAdForPath() {
+            document.getElementById('step4').classList.add('hidden');
+            document.getElementById('adOverlay').classList.remove('hidden');
+            
+            let timeLeft = 60;
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('adTimer').textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('skipBtn').classList.remove('hidden');
+                }
+            }, 1000);
+        }
+
+        function skipAd() {
+            document.getElementById('adOverlay').classList.add('hidden');
+            selectedPathIndex = 1;
+            showPath('Free Savings Path');
+        }
+
+        function showPath(title) {
+            const path = allPaths[selectedPathIndex];
+            document.getElementById('pathTitle').textContent = title;
+            
+            let pathHTML = '';
+            path.route.forEach((curr, i) => {
+                pathHTML += `<span class="currency-badge">${curr}</span>`;
+                if (i < path.route.length - 1) {
+                    pathHTML += '<span class="arrow-icon">→</span>';
+                }
+            });
+            document.getElementById('pathSteps').innerHTML = pathHTML;
+
+            let platformHTML = '';
+            let instructionsHTML = '';
+            for (let i = 0; i < path.route.length - 1; i++) {
+                const pair = `${path.route[i]}-${path.route[i + 1]}`;
+                const platform = platforms[pair] || 'Pesa';
+                
+                platformHTML += `
+                    <div class="platform-row">
+                        <span class="platform-label">${path.route[i]} → ${path.route[i + 1]}</span>
+                        <span class="platform-name">${platform}</span>
+                    </div>
+                `;
+                
+                instructionsHTML += `<li>Open <strong>${platform}</strong> and convert from <strong>${path.route[i]}</strong> to <strong>${path.route[i + 1]}</strong></li>`;
+            }
+            document.getElementById('platformList').innerHTML = platformHTML;
+            document.getElementById('instructionsList').innerHTML = instructionsHTML;
+
+            document.getElementById('finalAmount').textContent = `${path.finalAmount.toFixed(2)} ${toCurrency}`;
+
+            document.getElementById('step5').classList.remove('hidden');
+        }
+
+        function startOver() {
+            document.getElementById('step5').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+            document.querySelectorAll('.currency-bubble').forEach(b => b.classList.remove('selected'));
+            document.getElementById('amount').value = '';
+        }
+    </script>
+</body>
+</html>
