@@ -601,6 +601,289 @@
             margin-top: 28px;
             animation: fadeInUp 0.5s ease;
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .logo {
+                margin-bottom: 40px;
+            }
+
+            .logo h1 {
+                font-size: 38px;
+            }
+
+            .logo .tagline {
+                font-size: 14px;
+            }
+
+            .card {
+                padding: 32px 24px;
+                border-radius: 20px;
+            }
+
+            .step-indicator {
+                gap: 10px;
+                margin-bottom: 32px;
+            }
+
+            .step {
+                width: 42px;
+                height: 42px;
+                font-size: 16px;
+            }
+
+            h2 {
+                font-size: 26px;
+                margin-bottom: 28px;
+            }
+
+            .bubble-container {
+                gap: 14px;
+                margin: 28px 0;
+            }
+
+            .currency-bubble {
+                padding: 24px 16px;
+                border-radius: 18px;
+            }
+
+            .currency-flag {
+                font-size: 36px;
+                margin-bottom: 8px;
+            }
+
+            .currency-code {
+                font-size: 20px;
+            }
+
+            .currency-name {
+                font-size: 12px;
+            }
+
+            .input-field {
+                margin-bottom: 24px;
+            }
+
+            label {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+
+            input {
+                padding: 18px 16px;
+                font-size: 18px;
+                border-radius: 16px;
+            }
+
+            button {
+                padding: 18px 28px;
+                font-size: 18px;
+                border-radius: 16px;
+            }
+
+            .emoji {
+                font-size: 56px;
+                margin-bottom: 16px;
+            }
+
+            .conversion-info {
+                padding: 24px 20px;
+                border-radius: 16px;
+                margin-bottom: 24px;
+            }
+
+            .conversion-row {
+                margin: 12px 0;
+                font-size: 15px;
+            }
+
+            .conversion-label {
+                font-size: 14px;
+            }
+
+            .conversion-value {
+                font-size: 16px;
+            }
+
+            .currency-icon {
+                font-size: 20px;
+            }
+
+            .savings-reveal {
+                padding: 28px 20px;
+                border-radius: 18px;
+                margin: 24px 0;
+            }
+
+            .savings-amount {
+                font-size: 48px;
+                margin: 16px 0;
+            }
+
+            .unlock-options {
+                gap: 16px;
+                margin-top: 24px;
+            }
+
+            .option-card {
+                padding: 24px 20px;
+                border-radius: 16px;
+            }
+
+            .option-badge {
+                padding: 6px 14px;
+                font-size: 12px;
+                margin-bottom: 12px;
+            }
+
+            .option-title {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+            .option-desc {
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+
+            .option-amount {
+                font-size: 28px;
+                margin: 12px 0;
+            }
+
+            .path-revealed {
+                padding: 28px 20px;
+                border-radius: 18px;
+                margin-top: 24px;
+            }
+
+            .path-steps {
+                gap: 12px;
+                margin: 24px 0;
+            }
+
+            .currency-badge {
+                padding: 14px 24px;
+                font-size: 18px;
+                border-radius: 28px;
+            }
+
+            .arrow-icon {
+                font-size: 24px;
+            }
+
+            .platform-info {
+                padding: 20px 16px;
+                border-radius: 14px;
+                margin-top: 20px;
+            }
+
+            .platform-row {
+                padding: 10px 0;
+            }
+
+            .platform-label {
+                font-size: 14px;
+            }
+
+            .platform-name {
+                font-size: 16px;
+            }
+
+            .instructions {
+                padding: 20px 16px;
+                border-radius: 14px;
+                margin-top: 20px;
+            }
+
+            .instructions ol {
+                margin-left: 20px;
+                margin-top: 12px;
+            }
+
+            .instructions li {
+                margin: 10px 0;
+                font-size: 14px;
+            }
+
+            .final-box {
+                padding: 28px 20px;
+                border-radius: 18px;
+                margin-top: 24px;
+            }
+
+            .final-amount {
+                font-size: 42px;
+                margin: 12px 0;
+            }
+
+            .ad-container {
+                padding: 40px 28px;
+                max-width: calc(100% - 32px);
+                border-radius: 20px;
+            }
+
+            .ad-timer {
+                font-size: 64px;
+                margin: 24px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 32px;
+            }
+
+            .card {
+                padding: 28px 20px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            .bubble-container {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .currency-bubble {
+                padding: 28px 20px;
+            }
+
+            .savings-amount {
+                font-size: 40px;
+            }
+
+            .option-title {
+                font-size: 20px;
+            }
+
+            .option-amount {
+                font-size: 24px;
+            }
+
+            .currency-badge {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+
+            .final-amount {
+                font-size: 36px;
+            }
+
+            .ad-timer {
+                font-size: 56px;
+            }
+        }
     </style>
 </head>
 <body>
